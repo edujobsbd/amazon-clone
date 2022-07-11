@@ -1,6 +1,6 @@
 const express = require("express");
 const User = require("../models/user");
-//const bcryptjs = require("bcryptjs");
+const bcryptjs = require("bcryptjs");
 
 const authRouter = express.Router();
 
@@ -24,12 +24,13 @@ authRouter.post("/api/signup", async (req, res) => {
     }
 
     //for password hashing using bcryptjs npm package
-    //const hashedPassword = await bcryptjs.hash(password, 8);
+    //bcrypt js using for hide password in database form another users.
+    const hashedPassword = await bcryptjs.hash(password, 8);
 
     let user = new User({
       email,
       //setting hasedPassword into user model password
-      password, //: hashedPassword,
+      password: hashedPassword,
       name,
     });
     user = await user.save();

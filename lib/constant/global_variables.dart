@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+String uri = 'http://192.168.1.3:3000';
 class Global_variables{
   static const appBarGradient = LinearGradient(
     colors: [

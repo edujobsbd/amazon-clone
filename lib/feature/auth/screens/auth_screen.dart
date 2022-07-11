@@ -1,6 +1,7 @@
 import 'package:amazon_clone/comman/widget/custom_buttons.dart';
 import 'package:amazon_clone/comman/widget/custom_input_felds.dart';
 import 'package:amazon_clone/constant/global_variables.dart';
+import 'package:amazon_clone/service/aurh_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -19,18 +20,17 @@ class AuthScreen extends StatefulWidget {
 }
 
 class _AuthScreenState extends State<AuthScreen> {
-
   final SignUpFormkey = GlobalKey<FormState>();
   final SignInFormkey = GlobalKey<FormState>();
+  final AuthService authService = AuthService();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController nameController = TextEditingController();
 
   Auth _auth = Auth.signUp;
 
   @override
   Widget build(BuildContext context) {
-    final TextEditingController emailController = TextEditingController();
-    final TextEditingController passwordController = TextEditingController();
-    final TextEditingController nameController = TextEditingController();
-
     @override
     void dispose() {
       super.dispose();
@@ -38,6 +38,19 @@ class _AuthScreenState extends State<AuthScreen> {
       passwordController.dispose();
       nameController.dispose();
     }
+
+    ;
+
+    void signUpUser() {
+      authService.signUpUser(
+        context: context,
+        email: emailController.text,
+        password: passwordController.text,
+        name: nameController.text,
+      );
+    }
+
+    ;
 
     return Scaffold(
       backgroundColor: Global_variables.greyBackgroundColor,
@@ -104,7 +117,11 @@ class _AuthScreenState extends State<AuthScreen> {
                         ),
                         CustomButtons(
                           text: 'Sign up ',
-                          onPres: () {},
+                          onPres: () {
+                            if(SignUpFormkey.currentState!.validate()){
+                              signUpUser();
+                            }
+                          },
                         ),
                       ],
                     ),
@@ -153,7 +170,9 @@ class _AuthScreenState extends State<AuthScreen> {
                         ),
                         CustomButtons(
                           text: 'Sign in ',
-                          onPres: () {},
+                          onPres: () {
+                            
+                          },
                         ),
                       ],
                     ),
