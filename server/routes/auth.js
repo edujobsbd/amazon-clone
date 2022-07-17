@@ -8,28 +8,18 @@ authRouter.post("/api/signup", async (req, res) => {
   try {
     const { name, email, password } = req.body;
 
-    /*crated model-> user schema->user model-> model exports using
-        JS module.exports=User & HERE import using const User = require("../models/user")
-        validating email from user model schema
-        */
     const existingUser = await User.findOne({ email });
 
-    /*Email-
-        existingUser will not give boolean valu 
-        it just chakiing, is it excistign anythings*/
     if (existingUser) {
       return res
         .status(400)
         .json({ msg: "User with same email already exisits!! " });
     }
 
-    //for password hashing using bcryptjs npm package
-    //bcrypt js using for hide password in database form another users.
     const hashedPassword = await bcryptjs.hash(password, 8);
 
     let user = new User({
       email,
-      //setting hasedPassword into user model password
       password: hashedPassword,
       name,
     });

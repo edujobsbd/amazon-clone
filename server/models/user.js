@@ -16,7 +16,7 @@ const userSchmea = mongoose.Schema({
           /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
         return value.match(re);
       },
-      massage: "Plase enter a valid email address",
+      message: "Plase enter a valid email address",
     },
   },
   password: {
@@ -26,7 +26,7 @@ const userSchmea = mongoose.Schema({
       validator: (value) => {
         return value.length > 6;
       },
-      massage: "Plase enter a long password",
+      message: "Plase enter a long password",
     },
   },
   address: {
